@@ -1,0 +1,71 @@
+﻿@model Doctors_Web_Forum.DAL.Models.Question
+@{
+    ViewData["Title"] = "Chi tiết câu hỏi";
+    var answers = ViewBag.Answers as List<AnswerViewModel>;
+    var currentUser = ViewBag.CurrentUserId;
+}
+
+<div class="container">
+    <!-- Hiển thị thông tin câu hỏi -->
+    <div class="question-section">
+        <h3>Câu hỏi:</h3>
+        <div class="list-group">
+            <div class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">@ViewBag.UserName (@ViewBag.UserEmail)</h5>
+                    <small>@Model.PostDate.ToString("dd/MM/yyyy HH:mm")</small>
+                </div>
+                <p class="mb-1"><strong>Nội dung:</strong> @Model.QuestionText</p>
+                <p class="mb-1"><strong>Mô tả:</strong> @Model.Description</p>
+                <p class="mb-1"><strong>Chủ đề:</strong> @Model.Topic?.TopicName</p>
+                <small>Trạng thái: @(Model.Status ? "Công khai" : "Đã đóng")</small>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <!-- Hiển thị danh sách câu trả lời -->
+    <div class="answer-section">
+        <h3>Các câu trả lời:</h3>
+        <div class="list-group">
+            @if (answers != null && answers.Any())
+            {
+                foreach (var answer in answers)
+                {
+                    <div class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">@answer.UserName</h5>
+                            <small>@answer.PostedDate.ToString("dd/MM/yyyy HH:mm")</small>
+                        </div>
+                        <p class="mb-1 text-muted">@answer.UserEmail</p>
+                        <p class="mb-1">@answer.AnswerText</p>
+                        <small>Trạng thái: @(answer.Status ? "Hoạt động" : "Ẩn")</small>
+                        @if (currentUser == answer.UserId)
+                        {
+                            <div>
+                                <a href="@Url.Action("EditAnswer", "Question", new { area = "Admin", id = answer.Id })" class="btn btn-warning">Sửa</a>
+                                <a href="@Url.Action("DeleteAnswer", "Question", new { area = "Admin", id = answer.Id })" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa câu trả lời này không?');">Xóa</a>
+                            </div>
+                        }
+
+                    </div>
+                }
+            }
+            else
+            {
+                <p><i>Chưa có câu trả lời</i></p>
+            }
+        </div>
+
+        
+        <form asp-area="Admin" asp-controller="Question" asp-action="AddAnswer" method="post">
+            <input type="hidden" name="QuestionId" value="@Model.Id" />
+            <div class="form-group mt-3">
+                <label for="AnswerText">Câu trả lời mới:</label>
+                <textarea name="AnswerText" class="form-control"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Thêm câu trả lời</button>
+        </form>
+    </div>
+</div>

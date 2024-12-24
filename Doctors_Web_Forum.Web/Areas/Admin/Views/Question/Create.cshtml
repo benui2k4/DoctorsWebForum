@@ -1,0 +1,39 @@
+﻿@model Doctors_Web_Forum.DAL.Models.Question
+
+@{
+    ViewData["Title"] = "Tạo Câu Hỏi Mới";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="TopicId">Chủ đề</label>
+        <select asp-for="TopicId" class="form-control" asp-items="@(new SelectList(ViewBag.Topics, "Id", "TopicName"))">
+            <option value="">Chọn chủ đề</option>
+        </select>
+
+        <span asp-validation-for="TopicId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="QuestionText">Tiêu đề câu hỏi</label>
+        <input asp-for="QuestionText" class="form-control" />
+        <span asp-validation-for="QuestionText" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="Description">Mô tả</label>
+        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Tạo Câu Hỏi</button>
+    <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

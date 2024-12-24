@@ -1,0 +1,64 @@
+﻿@using Doctors_Web_Forum.DAL.Models
+@model IEnumerable<Doctors_Web_Forum.DAL.Models.Question>
+
+@{
+    ViewData["Title"] = "Questions List";
+    Paginate pager = new Paginate();
+    string searchTerm = ViewBag.SearchTerm ?? "";
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+    }
+}
+
+<div class="row mb-3">
+    <div class="col-md-4 text-start">
+        <a asp-action="Create" class="btn btn-primary">Create New Question</a>
+    </div>
+    <div class="form-inline col-md-8">
+        <form method="get" asp-action="Index">
+            <input type="text" class="form-control me-2" name="searchTerm" value="@searchTerm" placeholder="Search By Question Text..." />
+            <button type="submit" class="btn btn-success">Search</button>
+            <button type="reset" class="btn btn-primary">Reset</button>
+        </form>
+    </div>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            
+            <th>Question Text</th>
+            
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var question in Model)
+            {
+                <tr>
+                    
+                    <td>@question.QuestionText</td>
+                   
+                    <td>@(question.Status ? "Active" : "Inactive")</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@question.Id" class="btn btn-info btn-sm">Details</a>
+                        <a asp-action="Edit" asp-route-id="@question.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@question.Id" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this question?');">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No questions available.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<partial name="_paging" model="@pager" />

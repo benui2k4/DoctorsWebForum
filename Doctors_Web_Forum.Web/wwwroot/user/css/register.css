@@ -1,0 +1,103 @@
+﻿    
+
+/* Page Styles */
+.register-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Banner Section */
+.banner {
+    text-align: center;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    width: 100%;
+    padding: 30px 0;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+    .banner h1 {
+        margin: 0;
+        font-size: 2.5em;
+    }
+
+    .banner p {
+        margin-top: 10px;
+        font-size: 1.2em;
+    }
+
+/* Form Section */
+.register-form {
+    width: 100%;
+    max-width: 500px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+    .form-group label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .form-group input {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1em;
+    }
+
+        .form-group input:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+.terms {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9em;
+}
+
+    .terms label a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        .terms label a:hover {
+            text-decoration: underline;
+        }
+
+/* Button Styles */
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 1em;
+    color: white;
+    background: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+    .btn:hover {
+        background: #0056b3;
+    }

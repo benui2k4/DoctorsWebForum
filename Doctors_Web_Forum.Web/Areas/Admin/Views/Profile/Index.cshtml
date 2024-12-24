@@ -1,0 +1,144 @@
+﻿@model Doctors_Web_Forum.DAL.Models.Profile
+
+@{
+    ViewData["Title"] = "Profile Information";
+}
+
+
+<div class="profile-container">
+    <div class="profile-header">
+        <a href="@Url.Action("Edit", "Profile")" class="btn btn-primary btn-edit-profile">Edit Profile</a>
+        <a href="@Url.Action("ChangePassword", "Profile")" class="btn btn-warning btn-change-password">Change Password</a>
+    </div>
+
+    <div class="profile-body">
+        <div class="profile-image">
+            @if (!string.IsNullOrEmpty(Model.Picture))
+            {
+                <img src="@Model.Picture" alt="Profile Picture" class="img-circle" width="150" height="150" />
+            }
+            else
+            {
+                <img src="~/admin/dist/img/user2-160x160.jpg" alt="Default Profile Picture" class="img-circle" width="150" height="150" />
+            }
+        </div>
+
+        <div class="profile-details">
+            <dl class="dl-horizontal">
+                <dt>Full Name:</dt>
+                <dd>@Model.FullName</dd>
+
+                <dt>Email:</dt>
+                <dd>@Model.User.Email</dd>
+
+                <dt>Phone:</dt>
+                <dd>@Model.Phone</dd>
+
+                <dt>Address:</dt>
+                <dd>@Model.Address</dd>
+
+                <dt>Contact:</dt>
+                <dd>@Model.Contact</dd>
+
+                <dt>Status:</dt>
+                <dd>@(Model.Status ? "Active" : "Inactive")</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+
+<!-- CSS for Styling -->
+<style>
+    .profile-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+        .profile-header h2 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+    .btn-edit-profile,
+    .btn-change-password {
+        padding: 8px 15px;
+        border-radius: 5px;
+        text-decoration: none;
+        color: white;
+    }
+
+    .btn-edit-profile {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-edit-profile:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+    .btn-change-password {
+        background-color: #ffc107;
+        border-color: #ffc107;
+    }
+
+        .btn-change-password:hover {
+            background-color: #e0a800;
+            border-color: #e0a800;
+        }
+
+    .profile-body {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .profile-image {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .profile-details {
+        flex: 2;
+    }
+
+        .profile-details dl {
+            margin: 0;
+            padding: 0;
+        }
+
+        .profile-details dt {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .profile-details dd {
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #555;
+        }
+
+    .img-circle {
+        border-radius: 50%;
+    }
+
+    .profile-details dd img {
+        max-width: 100%;
+        border-radius: 50%;
+    }
+</style>

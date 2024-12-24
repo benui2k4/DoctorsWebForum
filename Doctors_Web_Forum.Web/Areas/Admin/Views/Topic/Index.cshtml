@@ -1,0 +1,73 @@
+﻿@using Doctors_Web_Forum.DAL.Models
+@model IEnumerable<Doctors_Web_Forum.DAL.Models.Topic>
+
+@{
+    ViewData["Title"] = "Topics List";
+    Paginate pager = new Paginate();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
+}
+
+
+
+
+<div class="row mb-3">
+
+    <div class="col-md-4 text-start">
+        <a asp-action="Create" class="btn btn-primary">Create New Topic</a>
+    </div>
+
+    <div class="form-inline col-md-8">
+        <form method="get" asp-action="Index">
+            <input type="text" class="form-control me-2" name="searchTerm" value="@ViewBag.SearchTerm" placeholder="Search By Topic Name..." />
+            <button type="submit" class="btn btn-success">Search</button>
+            <button type="reset" class="btn btn-primary">Reset</button>
+
+        </form>
+    </div>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Topic Name</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var topic in Model)
+            {
+                <tr>
+                    <td>@topic.Id</td>
+                    <td>@topic.TopicName</td>
+                    <td>@(topic.Status ? "Active" : "Inactive")</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@topic.Id" class="btn btn-info btn-sm">Details</a>
+                        <a asp-action="Edit" asp-route-id="@topic.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@topic.Id" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this topic?');">
+                            Delete
+                        </a>
+
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No topics available.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<partial name="_paging" model="@pager" />
+

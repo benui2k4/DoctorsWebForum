@@ -1,0 +1,15 @@
+C:\Users\Admin\source\repos\Doctors_Web_Forum\Doctors_Web_Forum.BLL\bin\Debug\net8.0\Doctors_Web_Forum.BLL.deps.json
+C:\Users\Admin\source\repos\Doctors_Web_Forum\Doctors_Web_Forum.BLL\bin\Debug\net8.0\Doctors_Web_Forum.BLL.dll
+C:\Users\Admin\source\repos\Doctors_Web_Forum\Doctors_Web_Forum.BLL\bin\Debug\net8.0\Doctors_Web_Forum.BLL.pdb
+C:\Users\Admin\source\repos\Doctors_Web_Forum\Doctors_Web_Forum.BLL\bin\Debug\net8.0\Doctors_Web_Forum.DAL.dll
+C:\Users\Admin\source\repos\Doctors_Web_Forum\Doctors_Web_Forum.BLL\bin\Debug\net8.0\Doctors_Web_Forum.DAL.pdb
+C:\Users\Admin\source\repos\Doctors_Web_Forum\Doctors_Web_Forum.BLL\obj\Debug\net8.0\Doctors_Web_Forum.BLL.csproj.AssemblyReference.cache
+C:\Users\Admin\source\repos\Doctors_Web_Forum\Doctors_Web_Forum.BLL\obj\Debug\net8.0\Doctors_Web_Forum.BLL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\source\repos\Doctors_Web_Forum\Doctors_Web_Forum.BLL\obj\Debug\net8.0\Doctors_Web_Forum.BLL.AssemblyInfoInputs.cache
+C:\Users\Admin\source\repos\Doctors_Web_Forum\Doctors_Web_Forum.BLL\obj\Debug\net8.0\Doctors_Web_Forum.BLL.AssemblyInfo.cs
+C:\Users\Admin\source\repos\Doctors_Web_Forum\Doctors_Web_Forum.BLL\obj\Debug\net8.0\Doctors_Web_Forum.BLL.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\Doctors_Web_Forum\Doctors_Web_Forum.BLL\obj\Debug\net8.0\Doctors_.A522DB10.Up2Date
+C:\Users\Admin\source\repos\Doctors_Web_Forum\Doctors_Web_Forum.BLL\obj\Debug\net8.0\Doctors_Web_Forum.BLL.dll
+C:\Users\Admin\source\repos\Doctors_Web_Forum\Doctors_Web_Forum.BLL\obj\Debug\net8.0\refint\Doctors_Web_Forum.BLL.dll
+C:\Users\Admin\source\repos\Doctors_Web_Forum\Doctors_Web_Forum.BLL\obj\Debug\net8.0\Doctors_Web_Forum.BLL.pdb
+C:\Users\Admin\source\repos\Doctors_Web_Forum\Doctors_Web_Forum.BLL\obj\Debug\net8.0\ref\Doctors_Web_Forum.BLL.dll

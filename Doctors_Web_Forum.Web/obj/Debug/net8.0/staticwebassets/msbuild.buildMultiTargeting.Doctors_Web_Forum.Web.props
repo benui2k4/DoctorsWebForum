@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Doctors_Web_Forum.Web.props" />
+</Project>

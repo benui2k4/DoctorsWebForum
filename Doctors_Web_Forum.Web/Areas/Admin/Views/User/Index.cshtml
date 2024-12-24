@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Doctors_Web_Forum.DAL.Models.User>
+
+@{
+    ViewData["Title"] = "Users List";
+    Paginate pager = new Paginate();
+    int pageNo = 0;
+    if (ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
+}
+
+<div class="row mb-3">
+    <div class="col-md-4 text-start">
+        <a asp-action="Create" class="btn btn-primary">Create new users</a>
+    </div>
+
+    <div class="form-inline col-md-8">
+        <form method="get" asp-action="Index">
+            <input type="text" class="form-control me-2" name="searchTerm" value="@ViewBag.SearchTerm" placeholder="Search By Username..." autocomplete="off" />
+            <button type="submit" class="btn btn-success">Search</button>
+            <button type="reset" class="btn btn-primary" onclick="this.form.reset();">Reset</button>
+        </form>
+    </div>
+</div>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Status</th>
+            <th>Email</th>
+            <th>PhoneNumber</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.UserName</td>
+                    <td>@(user.Status ? "Active" : "Inactive")</td>
+                    <td>@user.Email</td>
+                    <td>@user.PhoneNumber</td>
+                    <td>@user.Role</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@user.Id" class="btn btn-info btn-sm">Details</a>
+                        <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-danger btn-sm" data-confirm="Are you sure you want to delete this user?">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="7" class="text-center">No users available.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<partial name="_paging" model="@pager" />

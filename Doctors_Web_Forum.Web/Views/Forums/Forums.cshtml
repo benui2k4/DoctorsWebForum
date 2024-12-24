@@ -1,0 +1,70 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Forums Index";
+}
+
+@{
+    var categories = ViewBag.Categories as List<dynamic>;
+    var recentPosts = ViewBag.RecentPosts as List<dynamic>;
+}
+
+<div class="message-boards">
+    <!-- Banner -->
+    <section class="banner">
+        <h1>Message Boards</h1>
+        <p>Find support, ask questions, and share experiences in our forums.</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <!-- Forum Categories -->
+        <section class="categories">
+            <h2>Browse Forums by Topics</h2>
+            <div class="categories-list">
+                @foreach (var category in categories)
+                {
+                    <div class="category-item">
+                        <h3><a href="#">@category.Name</a></h3>
+                        <p>@category.Description</p>
+                        <span>Last Post: <a href="#">@category.LastPost</a></span>
+                    </div>
+                }
+            </div>
+        </section>
+
+        <!-- Recent Posts -->
+        <section class="recent-posts">
+            <h2>Recent Posts</h2>
+            <ul>
+                @foreach (var post in recentPosts)
+                {
+                    <li>
+                        <a href="#">@post.QuestionText</a>
+                        <p>By <strong>@post.UserName</strong> in <a href="#">@post.TopicName</a> on @post.PostDate</p>
+                    </li>
+                }
+            </ul>
+        </section>
+
+        <!-- Sidebar -->    
+        <aside class="sidebar">
+            <div class="search-box">
+                <h3>Search Forums</h3>
+                <form method="get" action="/Search">
+                    <input type="text" name="query" placeholder="Search topics or posts..." />
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+            <div class="popular-links">
+                <h3>Popular Links</h3>
+                <ul>
+                    <li><a href="#">Most Active Discussions</a></li>
+                    <li><a href="#">Latest Questions</a></li>
+                    <li><a href="#">Top Answered Posts</a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</div>

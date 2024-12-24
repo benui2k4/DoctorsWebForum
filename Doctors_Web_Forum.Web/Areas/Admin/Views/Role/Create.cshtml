@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Create Role";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="mb-3">
+    <a href="@Url.Action("Index", "Role", new { area = "Admin" })" class="btn btn-secondary">Back to Role List</a>
+</div>
+
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["success"]
+    </div>
+}
+
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["error"]
+    </div>
+}
+
+<form method="post">
+    <div class="form-group">
+        <label for="roleName">Role Name</label>
+        <input type="text" name="roleName" id="roleName" class="form-control" placeholder="Enter role name" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Create Role</button>
+</form>

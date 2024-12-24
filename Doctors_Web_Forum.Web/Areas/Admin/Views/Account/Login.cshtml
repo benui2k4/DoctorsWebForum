@@ -1,0 +1,93 @@
+﻿@using Doctors_Web_Forum.DAL.Models
+@model Doctors_Web_Forum.DAL.Models.ViewModel.LoginViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AdminLTE 2 | Login Admin </title>
+
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="~/admin/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/admin/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins -->
+    <link rel="stylesheet" href="~/admin/dist/css/skins/_all-skins.min.css">
+
+
+</head>
+<body >
+    <div class="wrapper">
+
+
+        <div class="login-box">
+            <div class="login-logo">
+                <a href=""><b>Doctor Web Forum</b></a>
+            </div>
+            <!-- /.login-logo -->
+            <div class="login-box-body">
+                <p class="login-box-msg">Login in to start your admin session</p>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <form asp-action="Login" asp-controller="Account" method="post">
+                    <div class="form-group has-feedback">
+                        <input asp-for="Email" class="form-control" placeholder="Email" />
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group has-feedback">
+                        <input asp-for="Password" type="password" class="form-control" placeholder="Password" />
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    @* <div class="form-group">
+                    <div class="form-inline">
+                    <label>
+                    <input type="checkbox" /> Remember Me
+                    </label>
+                    </div>
+                    </div> *@
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
+                    </div>
+                    <div class="text-center">
+                        <p>Chưa có tài khoản? <a asp-controller="Account" asp-action="Create">Sign Up</a></p>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="~/admin/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+    <script src="~/admin/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/admin/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="~/admin/plugins/fastclick/fastclick.js"></script>
+    <script src="~/admin/dist/js/app.min.js"></script>
+    <script src="~/admin/dist/js/demo.js"></script>
+
+
+
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+
+    }
+
+</body>
+</html>

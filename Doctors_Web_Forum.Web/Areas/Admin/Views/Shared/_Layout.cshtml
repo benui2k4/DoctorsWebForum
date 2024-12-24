@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AdminLTE 2 | @ViewData["Title"]</title>
+
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="~/admin/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/admin/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins -->
+    <link rel="stylesheet" href="~/admin/dist/css/skins/_all-skins.min.css">
+
+    @RenderSection("Styles", required: false)
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <!-- Header -->
+        <header class="main-header">
+            <a asp-action="Index" asp-controller="Dashboard" class="logo">
+                <span class="logo-mini">DWF</span>
+                <span class="logo-lg">Doctor_Forum</span>
+            </a>
+            <nav class="navbar navbar-static-top">
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+
+                        <li class="dropdown user user-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <!-- Sử dụng Partial View để hiển thị avatar -->
+                                @await Html.PartialAsync("_AvatarPartial")
+
+                                <!-- Hiển thị tên người dùng -->
+                                @if (User.Identity?.IsAuthenticated ?? false)
+                                {
+                                    <span class="hidden-xs">Hi, @User.Identity.Name</span>
+                                }
+                                else
+                                {
+                                    <span class="hidden-xs">Alexander Pierce</span>
+                                }
+                            </a>
+
+
+
+                            <ul class="dropdown-menu">
+                                <!-- User image -->
+                                <li class="user-header">
+                                    <!-- Sử dụng Partial View để hiển thị avatar -->
+                                    @await Html.PartialAsync("_AvatarPartial")
+
+                                    <!-- Hiển thị thông tin người dùng -->
+                                    @if (User.Identity?.IsAuthenticated ?? false)
+                                    {
+                                        <p>
+                                            @User.Identity.Name
+                                            <small>Member since DEC. 2024</small>
+                                        </p>
+                                    }
+                                    else
+                                    {
+                                        <p>
+                                            Alexander Pierce - Web Developer
+                                            <small>Member since Nov. 2024</small>
+                                        </p>
+                                    }
+                                </li>
+
+
+
+
+                                <!-- Menu Footer-->
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a asp-action="Index" asp-controller="Profile" class="btn btn-default btn-flat">Profile</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a asp-action="Logout" asp-controller="Account" class="btn btn-default btn-flat">Sign out</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- Control Sidebar Toggle Button -->
+                        <li>
+                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Sidebar -->
+        @await Html.PartialAsync("_SidebarPartial")
+
+        <!-- Content Wrapper -->
+        <div class="content-wrapper">
+            <section class="content-header">
+                <h1>@ViewData["Title"]</h1>
+                <ol class="breadcrumb">
+                    @RenderSection("Breadcrumb", required: false)
+                </ol>
+            </section>
+            <section class="content">
+                <!-- Notification -->
+                @Html.Partial("_NotificationPartial")
+
+                <!-- Body -->
+                @RenderBody()
+
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="pull-right hidden-xs">
+                <b>Version</b> 2.3.3
+            </div>
+            <strong>&copy; 2024-2025 PNS Studio.</strong> All rights reserved.
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="~/admin/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+    <script src="~/admin/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/admin/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="~/admin/plugins/fastclick/fastclick.js"></script>
+    <script src="~/admin/dist/js/app.min.js"></script>
+    <script src="~/admin/dist/js/demo.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

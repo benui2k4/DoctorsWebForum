@@ -1,0 +1,90 @@
+﻿
+
+<aside class="main-sidebar">
+    <section class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+          <div class="user-panel">
+            <div class="pull-left image">
+                @await Html.PartialAsync("_AvatarPartial") 
+            </div>
+
+
+            <div class="pull-left info">
+                @if (User.Identity?.IsAuthenticated ?? false)
+                {
+                    <p>@User.Identity.Name </p>
+                }
+                else
+                {
+                <p>Alexander Pierce</p> 
+                }
+                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+        </div> --> 
+        <!-- Sidebar menu -->
+        <ul class="sidebar-menu">
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Topics Manage</span> <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a asp-controller="Topic" asp-action="Index"><i class="fa fa-circle-o"></i>List Topic</a></li>
+                    <li><a asp-controller="Topic" asp-action="Create"><i class="fa fa-circle-o"></i>Create Topic</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-table"></i> <span>Users</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a asp-controller="User" asp-action="Index"><i class="fa fa-circle-o"></i>List Users</a></li>
+                    <li><a asp-controller="User" asp-action="Create"><i class="fa fa-circle-o"></i>Create Users</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-laptop"></i>
+                    <span>Roles Manage</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a asp-controller="Role" asp-action="Index"><i class="fa fa-circle-o"></i>List Roles</a></li>
+                    <li><a asp-controller="Role" asp-action="Create"><i class="fa fa-circle-o"></i>Create Role</a></li>
+                   
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-edit"></i> <span>Questions & Answer</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a asp-controller="Question" asp-action="Index"><i class="fa fa-circle-o"></i>List Question</a></li>
+                    <li><a asp-controller="Question" asp-action="Create"><i class="fa fa-circle-o"></i>Create Question</a></li>
+                   
+                </ul>
+            </li>
+
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-share"></i> <span>Answers Manager</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="#"><i class="fa fa-circle-o"></i> Simple tables</a></li>
+                    
+                    <li><a href="#"><i class="fa fa-circle-o"></i> Simple tables</a></li>
+                </ul>
+            </li>
+
+
+            <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
+        </ul>
+    </section>
+</aside>

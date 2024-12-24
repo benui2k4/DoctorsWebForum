@@ -1,0 +1,73 @@
+﻿@model Doctors_Web_Forum.DAL.Models.Profile
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <!-- Chỉnh sửa lại asp-for để sử dụng FullName từ Profile -->
+        <label asp-for="FullName" class="control-label">Full Name</label>
+        <input asp-for="FullName" class="form-control" />
+        <span asp-validation-for="FullName" class="text-danger"></span>
+    </div>
+
+    <!-- Contact Field -->
+    <div class="form-group">
+        <label asp-for="Contact" class="control-label">Contact</label>
+        <input asp-for="Contact" class="form-control" />
+        <span asp-validation-for="Contact" class="text-danger"></span>
+    </div>
+
+    <!-- Phone Field -->
+    <div class="form-group">
+        <label asp-for="Phone" class="control-label">Phone</label>
+        <input asp-for="Phone" class="form-control" />
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+
+    <!-- Address Field -->
+    <div class="form-group">
+        <label asp-for="Address" class="control-label">Address</label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+
+    <!-- Status Field -->
+    <div class="form-group">
+        <label asp-for="Status" class="control-label">Status</label>
+        <select asp-for="Status" class="form-control">
+            <option value="true">Active</option>
+            <option value="false">Inactive</option>
+        </select>
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+
+    <!-- Picture Field -->
+    <div class="form-group">
+        <label class="control-label">Profile Picture</label>
+        <input type="file" name="pictureFile" class="form-control" />
+
+        <!-- Hiển thị ảnh hiện tại -->
+        @if (!string.IsNullOrEmpty(Model.Picture))
+        {
+            <div>
+                <img src="@Model.Picture" alt="Profile Picture" width="100" height="100" />
+                <p>Current Profile Picture</p>
+            </div>
+        }
+
+        <!-- Trường ẩn để gửi ảnh hiện tại về Controller -->
+        <input type="hidden" asp-for="Picture" />
+
+        <span asp-validation-for="Picture" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
+
+<a href="@Url.Action("Index", "Profile")" class="btn btn-secondary">Back to Profile</a>

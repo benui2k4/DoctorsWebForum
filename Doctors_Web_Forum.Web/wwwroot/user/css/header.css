@@ -1,0 +1,89 @@
+﻿/* Tổng thể header */
+.header {
+    background-color: #0077cc;
+    padding: 15px 0;
+    border-bottom: 4px solid #005fa3;
+    flex-shrink: 0; /* Không cho header co lại */
+}
+
+    .header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    /* Logo */
+    .header .logo {
+        height: 50px;
+    }
+
+/* Navigation Menu */
+.nav-menu {
+    display: flex;
+    gap: 20px;
+}
+
+    .nav-menu a {
+        color: #ffffff; /* Màu chữ trắng */
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1em;
+        padding: 10px 15px;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+        .nav-menu a:hover {
+            background-color: #005fa3; /* Đổi nền khi rê chuột */
+            color: #ffcc00; /* Màu chữ vàng khi hover */
+        }
+
+
+/* Tổng thể Footer */
+.footer {
+    background-color: #0077cc;
+    color: #ffffff;
+    padding: 20px 0;
+    text-align: center;
+    flex-shrink: 0; /* Không để footer bị thu nhỏ */
+    width: 100%; /* Đảm bảo footer luôn phủ đủ chiều ngang */
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Logo hoặc tên website */
+.footer-brand {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Liên kết */
+.footer-links {
+    display: flex;
+    gap: 20px;
+}
+
+    .footer-links a {
+        color: #ffcc00; /* Màu vàng */
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+        .footer-links a:hover {
+            color: #ffffff; /* Khi rê chuột chuyển sang trắng */
+            text-decoration: underline;
+        }
+
+/* Thông tin bản quyền */
+.footer-copyright {
+    font-size: 0.8em;
+    color: #d1e7ff; /* Màu xanh nhạt */
+}

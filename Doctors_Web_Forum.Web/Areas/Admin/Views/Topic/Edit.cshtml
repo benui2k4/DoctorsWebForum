@@ -1,0 +1,62 @@
+﻿
+
+
+
+
+
+
+
+@model Doctors_Web_Forum.DAL.Models.Topic
+@{
+    ViewData["Title"] = "Edit Topic";
+}
+
+
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+                <div class="mb-3">
+                    <label asp-for="TopicName" class="form-label fw-bold">Topic Name</label>
+                    <input asp-for="TopicName" class="form-control" placeholder="Enter topic name" />
+                    <span asp-validation-for="TopicName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label fw-bold">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter topic description"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                
+
+                <div class="mb-3">
+                    <label asp-for="Status" class="form-lable fw-bold-bold">Status</label>
+                    <select asp-for="Status" class="form-select">
+                        <option value="true">Active</option>
+                        <option value="false">Inactive</option>
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+
+                </div>
+
+
+                <div class="d-flex justify-content-between">
+                    <!-- Nút Submit -->
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <!-- Nút Cancel -->
+                    <a href="@Url.Action("Index", "Topic", new { area = "Admin" })" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

@@ -1,0 +1,23 @@
+﻿@model Doctors_Web_Forum.DAL.Models.ViewModel.AnswerViewModel
+
+@{
+    ViewData["Title"] = "Chỉnh sửa câu trả lời";
+}
+
+<div class="container">
+    <h2>Chỉnh sửa câu trả lời</h2>
+
+    <form asp-action="EditAnswer" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="QuestionId" />
+
+        <div class="form-group">
+            <label asp-for="AnswerText" class="control-label">Câu trả lời</label>
+            <textarea asp-for="AnswerText" class="form-control"></textarea>
+            <span asp-validation-for="AnswerText" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+        <a asp-action="Details" asp-route-id="@Model.QuestionId" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>

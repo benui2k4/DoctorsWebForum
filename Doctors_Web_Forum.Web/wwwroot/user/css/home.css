@@ -1,0 +1,115 @@
+﻿
+
+/* Hero Section */
+.hero {
+    background-color: #6a1b9a; /* Màu tím đậm */
+    color: #ffffff;
+    text-align: center;
+    padding: 60px 20px; /* Khoảng cách lớn hơn */
+}
+
+    .hero h1 {
+        font-size: 3em;
+        margin-bottom: 15px;
+    }
+
+    .hero p {
+        font-size: 1.2em;
+        margin-bottom: 30px;
+    }
+.cta-buttons .btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1em;
+    margin: 0 10px;
+}
+
+.btn-primary {
+    background-color: #ffcc00;
+    color: #000;
+}
+
+    .btn-primary:hover {
+        background-color: #e6b800;
+    }
+
+.btn-secondary {
+    background-color: #ffffff;
+    color: #0077cc;
+    border: 2px solid #ffffff;
+}
+
+    .btn-secondary:hover {
+        background-color: #e6e6e6;
+    }
+
+/* Recent Posts Section */
+.recent-posts {
+    background-color: #f9f9f9;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+    .recent-posts h2 {
+        font-size: 2em;
+        margin-bottom: 20px;
+    }
+
+    .recent-posts ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .recent-posts li {
+        margin-bottom: 15px;
+        color: #666;
+        font-style: italic;
+    }
+
+/* Features Section */
+.features {
+    padding: 40px 20px;
+    background-color: #ffffff;
+}
+
+    .features h2 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+.feature-cards {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.feature-card {
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    width: 30%;
+}
+
+    .feature-card h3 {
+        color: #0077cc;
+        margin-bottom: 10px;
+    }
+
+/* Community Impact Section */
+.community-impact {
+    background-color: #005fa3;
+    color: #ffffff;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+    .community-impact h2 {
+        font-size: 2em;
+        margin-bottom: 10px;
+    }
+
+    .community-impact p {
+        font-size: 1.2em;
+    }

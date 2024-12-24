@@ -1,0 +1,57 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Topics Index";
+}
+
+<div class="drug-talk-page">
+    <!-- Banner -->
+    <header class="banner">
+        <h1>Drug Talk</h1>
+        <p>Ask questions, share experiences, and learn more about drugs.</p>
+    </header>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <!-- Questions List -->
+        <section class="questions">
+            <h2>Recent Questions</h2>
+
+            <!-- Nếu chưa có dữ liệu -->
+            <div class="no-data">
+                <p>No questions have been posted yet. Be the first to ask a question!</p>
+            </div>
+        </section>
+
+        <!-- Ask a Question Form -->
+        <section class="ask-question">
+            <h2>Ask a New Question</h2>
+            <form method="post" action="/Questions/Create">
+                <input type="hidden" name="topic_id" value="DRUG_TALK_TOPIC_ID">
+                <textarea name="question_text" placeholder="Type your question here..." required></textarea>
+                <button type="submit">Submit Question</button>
+            </form>
+        </section>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="search-box">
+                <h3>Search Questions</h3>
+                <form method="get" action="/Search">
+                    <input type="text" name="query" placeholder="Search for drug-related questions...">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+            <div class="popular-links">
+                <h3>Popular Discussions</h3>
+                <ul>
+                    <li><a href="#">What are the side effects of Ibuprofen?</a></li>
+                    <li><a href="#">Best time to take Vitamin D supplements?</a></li>
+                    <li><a href="#">Alternatives to Paracetamol</a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</div>
+

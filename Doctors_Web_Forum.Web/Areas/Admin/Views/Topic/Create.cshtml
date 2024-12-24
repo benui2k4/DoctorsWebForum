@@ -1,0 +1,49 @@
+﻿
+@{
+}
+@model Doctors_Web_Forum.DAL.Models.Topic
+
+@{
+    ViewData["Title"] = "Create New Topic";
+}
+
+<div class="container">
+    <form asp-action="Create" method="post" class="form-horizontal">
+
+
+        <div class="form-group">
+            <label asp-for="TopicName" class="control-label"></label>
+            <input asp-for="TopicName" class="form-control" />
+            <span asp-validation-for="TopicName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description" class="control-label"></label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Status" class="control-label"></label>
+            <select asp-for="Status" class="form-control">
+                <option value="true">Active</option>
+                <option value="false">Inactive</option>
+            </select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Create Topic</button>
+            <a href="@Url.Action("Index", "Topic", new { area = "Admin" })" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

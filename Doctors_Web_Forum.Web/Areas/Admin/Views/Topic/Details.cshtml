@@ -1,0 +1,31 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Doctors_Web_Forum.DAL.Models.Topic
+
+@{
+    ViewData["Title"] = "Topic Details";
+}
+
+<div>
+    <strong>Topic Name :</strong>
+    <p>@Model.TopicName</p>
+</div>
+
+<div>
+    <strong>Description:</strong>
+    <p>@Model.Description</p>
+</div>
+
+<div>
+    <strong>Status:</strong>
+    <p>@(Model.Status ? "Active" : "Inactive")</p>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+    <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+</div>
