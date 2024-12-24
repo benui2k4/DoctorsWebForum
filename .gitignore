@@ -1,0 +1,32 @@
+# Bỏ qua tệp appsettings.Development.json
+appsettings.Development.json
+
+# Bỏ qua tệp appsettings.Local.json
+appsettings.Local.json
+
+# Các thư mục build (output folders)
+bin/
+obj/
+
+# Bỏ qua bin và obj trong bất kỳ thư mục con nào
+**/bin/
+**/obj/
+
+
+
+# Các tệp biên dịch (DLL và PDB)
+*.dll
+*.pdb
+
+# Các thư mục và tệp của Visual Studio
+.vs/
+.idea/
+
+# Các tệp cấu hình người dùng của Visual Studio
+*.user
+*.suo
+*.userosscache
+*.userprefs
+
+# Các tệp cache của IDE
+*.cache
