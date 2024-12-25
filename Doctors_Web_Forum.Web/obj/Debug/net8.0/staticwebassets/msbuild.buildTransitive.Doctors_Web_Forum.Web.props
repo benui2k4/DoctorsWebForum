@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\Doctors_Web_Forum.Web.props" />
-</Project>
