@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Doctors_Web_Forum.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize]
+    
     public class TopicController : Controller
     {
         private readonly ITopicService _topicService;

@@ -1,12 +1,4 @@
-﻿* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-
-
-/* Header Styles */
+﻿/* Header Styles */
 header {
     background-color: #00468B;
     display: flex;
@@ -16,6 +8,10 @@ header {
     height: 60px;
     color: white;
 }
+
+
+
+
 
 /* Logo */
 .logo img {

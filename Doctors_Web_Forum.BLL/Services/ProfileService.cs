@@ -15,34 +15,34 @@ namespace Doctors_Web_Forum.Services
             _context = context;
         }
 
-        // Lấy thông tin profile của người dùng theo UserId
+        // Get info profile of users by UserId
         public async Task<Profile> GetProfileByUserIdAsync(string userId)
         {
             return await _context.Profiles
-                .Include(p => p.User) // Bao gồm thông tin user nếu cần
+                .Include(p => p.User) // Include user information if needed
                 .FirstOrDefaultAsync(p => p.UserId == userId);
         }
 
         // Cập nhật thông tin profile
         public async Task<bool> UpdateProfileAsync(Profile profile)
         {
-            // Đảm bảo UserId không phải null khi cập nhật
+            // Make sure UserId is not null when updating
             if (string.IsNullOrEmpty(profile.UserId))
             {
-                return false; // Trả về false nếu UserId không được cung cấp
+                return false; // Returns false if UserId is not provided
             }
 
-            // Tìm profile cần cập nhật
+            // Find the profile that needs updating
             var existingProfile = await _context.Profiles
                 .FirstOrDefaultAsync(p => p.UserId == profile.UserId);
 
             if (existingProfile == null)
             {
-                // Nếu không tìm thấy profile cũ, tạo mới
+                // If the old profile is not found, create a new one
                 return false;
             }
 
-            // Cập nhật thông tin của profile
+            // Update profile information
             existingProfile.FullName = profile.FullName;
             existingProfile.Contact = profile.Contact;
             existingProfile.Phone = profile.Phone;
@@ -50,7 +50,7 @@ namespace Doctors_Web_Forum.Services
             existingProfile.Status = profile.Status;
             existingProfile.Picture = profile.Picture;
 
-            // Cập nhật FullName trong bảng User
+            // Update FullName in the User table
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == profile.UserId);
             if (user != null)
             {
@@ -58,14 +58,14 @@ namespace Doctors_Web_Forum.Services
                 _context.Users.Update(user);
             }
 
-            // Lưu thay đổi vào cơ sở dữ liệu
+            // Save changes to the database
             _context.Profiles.Update(existingProfile);
             var result = await _context.SaveChangesAsync();
             return result > 0;
         }
 
 
-        // Tạo profile mới cho user nếu chưa có
+        // Create a new profile for the user if you don't have one
         public async Task<bool> CreateProfileAsync(string userId)
         {
             // Kiểm tra xem profile đã tồn tại chưa
@@ -74,19 +74,19 @@ namespace Doctors_Web_Forum.Services
 
             if (existingProfile != null)
             {
-                return false; // Nếu profile đã tồn tại, không tạo mới
+                return false; // If the profile already exists, do not create a new one
             }
 
-            // Tạo profile mới với giá trị mặc định
+            // Create a new profile with default values
             var newProfile = new Profile
             {
-                UserId = userId, // Đảm bảo UserId được gán
-                FullName = "New User", // Giá trị mặc định
-                Contact = "No Contact", // Giá trị mặc định
-                Phone = "No Phone", // Giá trị mặc định
-                Address = "No Address", // Giá trị mặc định
-                Status = true, // Giá trị mặc định, có thể là Active
-                Picture = null // Giá trị mặc định hoặc null nếu không có ảnh
+                UserId = userId, // Make sure UserId is assigned
+                FullName = "New User", 
+                Contact = "No Contact", 
+                Phone = "No Phone", 
+                Address = "No Address", 
+                Status = true, 
+                Picture = null 
             };
 
             _context.Profiles.Add(newProfile);

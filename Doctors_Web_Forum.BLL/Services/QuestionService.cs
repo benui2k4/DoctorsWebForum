@@ -63,8 +63,27 @@ namespace Doctors_Web_Forum.BLL.Services
         // Lấy câu hỏi theo Id và bao gồm câu trả lời
         public async Task<Question> GetQuestionByIdAsync(int id)
         {
-            return await GetQuestionsWithRelatedEntities()
-                .FirstOrDefaultAsync(q => q.Id == id);
+            return await _dataDBContext.Questions
+                .Include(q => q.User)       // Lấy thông tin người đăng câu hỏi
+                .Include(q => q.Topic)      // Lấy thông tin chủ đề của câu hỏi
+.Include(q => q.Answers)    // Lấy danh sách các câu trả lời
+                .ThenInclude(a => a.User)   // Lấy thông tin người trả lời
+                .FirstOrDefaultAsync(q => q.Id == id); // Tìm câu hỏi dựa trên ID
+        }
+
+
+        public async Task<bool> AddQuestionAsync(Question question)
+        {
+            try
+            {
+                _dataDBContext.Questions.Add(question);
+                await _dataDBContext.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         // Tạo câu hỏi mới
@@ -73,6 +92,34 @@ namespace Doctors_Web_Forum.BLL.Services
             _dataDBContext.Questions.Add(question);
             await _dataDBContext.SaveChangesAsync();
             return question;
+        }
+
+        public async Task<(IEnumerable<Question> questions, Paginate pager)> GetRecentPostsAsync(int pg, int pageSize = 10, string searchTerm = "")
+        {
+            if (pg <= 0) pg = 1;
+
+            var questionsQuery = _dataDBContext.Questions
+                .Include(q => q.User)  // Lấy thông tin người đăng câu hỏi
+                .Include(q => q.Topic)  // Lấy thông tin chủ đề câu hỏi
+                .OrderByDescending(q => q.PostDate);  // Sắp xếp theo ngày đăng, bài mới nhất lên đầu
+
+            // Nếu có tìm kiếm, lọc theo tiêu đề câu hỏi hoặc mô tả
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                questionsQuery = (IOrderedQueryable<Question>)questionsQuery.Where(q => q.QuestionText.Contains(searchTerm) || q.Description.Contains(searchTerm));
+            }
+
+            // Tính tổng số bản ghi
+            int totalRecords = await questionsQuery.CountAsync();
+            var pager = new Paginate(totalRecords, pg, pageSize);
+
+            // Lấy câu hỏi theo trang
+            var questions = await questionsQuery
+                .Skip((pg - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return (questions, pager);
         }
 
         // Cập nhật câu hỏi
@@ -114,5 +161,35 @@ namespace Doctors_Web_Forum.BLL.Services
             await _dataDBContext.SaveChangesAsync();
             return true;
         }
+        public async Task<(IEnumerable<Question>, Paginate)> GetQuestionsByTopicAsync(int topicId, int pg, int pageSize)
+        {
+            if (pg <= 0) pg = 1;
+
+            // Lọc câu hỏi theo topicId
+            var questionsQuery = _dataDBContext.Questions
+                .Include(q => q.User) // Bao gồm thông tin người đăng
+                .Include(q => q.Topic) // Bao gồm thông tin chủ đề
+                .Where(q => q.TopicId == topicId); // Lọc theo topicId
+
+            int recsCount = await questionsQuery.CountAsync();
+            var pager = new Paginate(recsCount, pg, pageSize);
+
+            // Phân trang
+            var questions = await questionsQuery.Skip((pg - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            return (questions, pager);
+        }
+
+
+
+        public async Task<List<Answer>> GetAnswersByQuestionIdAsync(int questionId)
+        {
+            return await _dataDBContext.Answers
+                .Include(a => a.User) // Bao gồm thông tin người trả lời
+                .Where(a => a.QuestionId == questionId) // Lọc theo QuestionId
+                .ToListAsync();
+        }
+
+
     }
 }

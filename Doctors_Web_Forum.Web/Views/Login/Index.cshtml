@@ -1,0 +1,56 @@
+﻿@model Doctors_Web_Forum.Web.Models.LoginUser
+
+@section Styles {
+    <link rel="stylesheet" href="~/user/css/login.css" asp-append-version="true" />
+}
+
+<div class="login-page">
+    <header class="banner">
+        <h1>Welcome Back!</h1>
+        <p>Please log in to continue.</p>
+    </header>
+    @if (TempData["error"] != null)
+    {
+        <div class="alert alert-danger mt-3">@TempData["error"]</div>
+    }
+
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success mt-3">@TempData["success"]</div>
+    }
+    <div class="login-form">
+        <h2>Login</h2>
+
+        <form asp-action="Index" asp-controller="Login" method="post">
+
+            @* Email *@
+            <div class="form-group">
+                <label asp-for="Email">Email</label>
+                <input asp-for="Email" class="form-control" placeholder="Enter your email...">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            @* Password *@
+            <div class="form-group">
+                <label asp-for="Password">Password</label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password...">
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" asp-for="ReturnUrl" />
+            <button type="submit" class="btn btn-primary">Log In</button>
+        </form>
+
+       
+
+
+        <div class="form-group">
+            <p>
+                Don't have an account?
+                <a href="/register" class="sign-up-link">Sign Up</a>
+            </p>
+        </div>
+
+        
+    </div>
+</div>

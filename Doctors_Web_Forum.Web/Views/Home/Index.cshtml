@@ -1,29 +1,101 @@
-﻿    @{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
+@model ValueTuple<IEnumerable<Doctors_Web_Forum.DAL.Models.Topic>, Doctors_Web_Forum.DAL.Models.Paginate>
+
+@section Styles {
+    <link rel="stylesheet" href="~/user/css/home.css" asp-append-version="true" />
+}
+
 <div class="home-page">
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <h1>Welcome to Doctors Web Forum</h1>
+            @if (TempData["success"] != null)
+            {
+                <div class="alert alert-success mt-3 text-center">
+                    @TempData["success"]
+                    <span onclick="this.parentElement.style.display='none'" style="cursor: pointer;">&times;</span>
+                </div>
+            }
+
             <p>Your trusted place to ask questions, share experiences, and connect with medical professionals.</p>
             <div class="cta-buttons">
+                
                 <a href="/Forums" class="btn btn-primary">Explore Forums</a>
-                <a href="/Account/Register" class="btn btn-secondary">Sign Up Now</a>
+                <a href="/Register" class="btn btn-secondary">Sign Up Now</a>
             </div>
         </div>
     </section>
 
-    <!-- Recent Posts Section -->
-    <section class="recent-posts">
+    
+
+
+
+    <section class="recent-posts mt-4">
         <div class="container">
-            <h2>Recent Discussions</h2>
-            <ul>
-                <!-- Nếu chưa có bài viết -->
-                <li>No discussions available at the moment. Be the first to start a discussion!</li>
-            </ul>
+            <h2 class="text-center mb-4">Explore Topics</h2>
+            
+            <div class="row">
+                @if (Model.Item1.Any())
+                {
+                    @foreach (var topic in Model.Item1)
+                    {
+                        <div class="col-md-6 col-lg-4 mb-4">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <a class="text-decoration-none text-dark">
+                                            @topic.TopicName
+                                        </a>
+                                    </h5>
+                                    <p class="card-text text-muted">
+                                        @Html.Raw(@topic.Description?.Length > 100 ? @topic.Description.Substring(0, 100) + "..." : @topic.Description)
+                                    </p>
+                                    <a href="/Question/Index?topicId=@topic.Id" class="btn btn-primary">View Details</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-12 text-center">
+                        <p>No topics available at the moment. Be the first to start a discussion!</p>
+                    </div>
+                }
+            </div>
+
+            <!-- Pagination -->
+            <nav class="mt-4">
+                <nav>
+                    <ul class="pagination">
+                        <!-- Nút Previous -->
+                        <li class="page-item @(Model.Item2.CurrentPage == 1 ? "disabled" : "")">
+                            <a class="page-link" href="?pg=@(Model.Item2.CurrentPage - 1)">&#x276E;</a>
+                        </li>
+
+                        <!-- Số trang -->
+                        @for (int i = 1; i <= Model.Item2.TotalPages; i++)
+                        {
+                            <li class="page-item @(i == Model.Item2.CurrentPage ? "active" : "")">
+                                <a class="page-link" href="?pg=@i">@i</a>
+                            </li>
+                        }
+
+                        <!-- Nút Next -->
+                        <li class="page-item @(Model.Item2.CurrentPage == Model.Item2.TotalPages ? "disabled" : "")">
+                            <a class="page-link" href="?pg=@(Model.Item2.CurrentPage + 1)">&#x276F;</a>
+                        </li>
+                    </ul>
+                </nav>
+
+
         </div>
     </section>
+
 
     <!-- Features Section -->
     <section class="features">
