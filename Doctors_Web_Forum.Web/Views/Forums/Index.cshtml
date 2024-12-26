@@ -1,13 +1,12 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-    ViewData["Title"] = "Forums Index";
+﻿@section Styles {
+    <link rel="stylesheet" href="~/user/css/forums.css" asp-append-version="true" />
 }
 
 @{
-    var categories = ViewBag.Categories as List<dynamic>;
-    var recentPosts = ViewBag.RecentPosts as List<dynamic>;
+    ViewData["Title"] = "Forums Index";
+    var categories = ViewBag.Categories as List<Doctors_Web_Forum.DAL.Models.Topic>;
+    var recentPosts = ViewBag.RecentPosts as List<Doctors_Web_Forum.DAL.Models.Question>;
+    var searchTerm = ViewBag.SearchTerm ?? "";
 }
 
 <div class="message-boards">
@@ -26,9 +25,8 @@
                 @foreach (var category in categories)
                 {
                     <div class="category-item">
-                        <h3><a href="#">@category.Name</a></h3>
+                        <h3><a href="#">@category.TopicName</a></h3>
                         <p>@category.Description</p>
-                        <span>Last Post: <a href="#">@category.LastPost</a></span>
                     </div>
                 }
             </div>
@@ -42,18 +40,18 @@
                 {
                     <li>
                         <a href="#">@post.QuestionText</a>
-                        <p>By <strong>@post.UserName</strong> in <a href="#">@post.TopicName</a> on @post.PostDate</p>
+                        <p>By <strong>@post.User.UserName</strong> in <a href="#">@post.Topic.TopicName</a> on @post.PostDate</p>
                     </li>
                 }
             </ul>
         </section>
 
-        <!-- Sidebar -->    
+        <!-- Sidebar -->
         <aside class="sidebar">
             <div class="search-box">
                 <h3>Search Forums</h3>
-                <form method="get" action="/Search">
-                    <input type="text" name="query" placeholder="Search topics or posts..." />
+                <form method="get" action="/Forums/Index">
+                    <input type="text" name="query" placeholder="Search topics or posts..." value="@searchTerm" />
                     <button type="submit" class="btn btn-primary">Search</button>
                 </form>
             </div>

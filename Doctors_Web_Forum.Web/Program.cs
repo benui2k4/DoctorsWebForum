@@ -49,6 +49,7 @@ app.MapControllerRoute(
     name: "Areas",
     pattern: "{area:exists}/{controller=Account}/{action=Login}/{id?}");
 
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

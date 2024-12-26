@@ -10,6 +10,8 @@ namespace Doctors_Web_Forum.BLL.IServices
         
         Task<IEnumerable<Answer>> GetAllAnswersAsync();
         Task<Answer> GetAnswerByIdAsync(int id);
+
+        Task<bool> AddAnswerAsync(Answer answer);
         Task<IEnumerable<Answer>> GetAnswersByQuestionIdAsync(int questionId);
         Task<Answer> CreateAnswerAsync(Answer answer);
         Task<Answer> UpdateAnswerAsync(int id, string answerText);

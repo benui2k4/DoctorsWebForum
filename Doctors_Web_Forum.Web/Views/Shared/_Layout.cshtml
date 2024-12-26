@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,20 +24,42 @@
             <!-- Logo -->
             <div class="logo-container">
                 <img src="~/user/images/logo_Web.jpg" alt="HealthBoards Logo" class="logo">
+=======
+﻿    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>@ViewData["Title"] - Doctors_Web_Forum.Web</title>
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/Doctors_Web_Forum.Web.styles.css" asp-append-version="true" />
+       <link rel="stylesheet" href="~/user/css/header.css" asp-append-version="true" />
+        @RenderSection("Styles", required: false)
+
+    </head>
+    <body>
+        <header class="header">
+            <div class="container">
+                <!-- Logo -->
+                <div class="logo-container">
+                    <img src="~/user/images/logo.jpg" alt="HealthBoards Logo" class="logo">
+                </div>
+
+                <!-- Navigation Menu -->
+                <nav class="nav-menu">
+                    <a asp-controller="Home" asp-action="Index">Home</a>
+                    <a asp-controller="Forums" asp-action="Index">Message Boards</a>
+                    <a asp-controller="Introduction" asp-action="Index">Introduction</a>
+                    <a asp-controller="Login" asp-action="Index">Login</a>
+                    <a asp-controller="Register" asp-action="Index">Sign Up</a> 
+                </nav>
+>>>>>>> Stashed changes
             </div>
-
-            <!-- Navigation Menu -->
-            <nav class="nav-menu">
-                <a asp-controller="Home" asp-action="Index">Home</a>
-                <a asp-controller="Forums" asp-action="Index">Message Boards</a>
-                <a asp-controller="Topics" asp-action="Index">Drug Talk</a>
-                <a asp-controller="Login" asp-action="Index">Login</a>
-                <a asp-controller="Register" asp-action="Index">Sign Up</a>
-            </nav>
-        </div>
-    </header>
+        </header>
 
 
+<<<<<<< Updated upstream
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -44,32 +67,83 @@
     </div>
 
     <footer>
+=======
+>>>>>>> Stashed changes
         <div class="container">
-            <div class="footer-content">
-                <!-- Logo hoặc Tên Website -->
-                <div class="footer-brand">
-                    <strong>Doctors Web Forum</strong>
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+
+      <div class="container">
+          <footer>
+            <div class="container">
+                <div class="row">
+                    <!-- Section 1: Introduction -->
+                    <div class="col-md-3">
+                        <h5>Introduction</h5>
+                        <p>
+                            The thirst for learning, upgrading technical skills, and applying concepts in real-life
+                            environments is what the industry demands from IT professionals today. This platform bridges
+                            the gap for continuous skill enhancement and implementation.
+                        </p>
+                    </div>
+
+                    <!-- Section 2: Objectives of the Project -->
+                    <div class="col-md-3">
+                        <h5>Objectives of the Project</h5>
+                        <ul>
+                            <li>Provide a sample project to simulate real-life scenarios.</li>
+                            <li>Help students build robust applications in a phased approach.</li>
+                            <li>Enable hands-on implementation of concepts.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Section 3: Problem Statement -->
+                    <div class="col-md-3">
+                        <h5>Problem Statement</h5>
+                        <p>
+                            Our client, a renowned cardiac specialist, envisions an online discussion forum for doctors worldwide to bridge communication gaps, discuss new cases, and save lives by enabling easy access to expertise.
+                        </p>
+                    </div>
+
+                    <!-- Section 4: Deliverables -->
+                    <div class="col-md-3">
+                        <h5>Deliverables</h5>
+                        <ul>
+                            <li>Regular status emails with reviews.</li>
+                            <li>Soft copy documentation with feedback.</li>
+                            <li>Adherence to project standards and proper reporting.</li>
+                        </ul>
+                    </div>
                 </div>
 
-                <!-- Các liên kết cần thiết -->
-                <div class="footer-links">
-                    <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy Policy</a>
-                    <a asp-area="" asp-controller="Home" asp-action="Terms">Terms of Service</a>
-                    <a asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a>
-                    <a asp-area="" asp-controller="Home" asp-action="About">About Us</a>
+                <hr class="my-4">
+
+                <!-- Hardware/Software Requirements -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5>Hardware/Software Requirements</h5>
+                        <p>
+                            Minimum Requirements: Pentium 166 or better, 64MB RAM, Windows 98 or higher, Java Virtual Machine.
+                        </p>
+                    </div>
                 </div>
 
-                <!-- Thông tin bản quyền -->
-                <div class="footer-copyright">
-                    &copy; 2024 Doctors_Web_Forum.Web. All rights reserved.
+                <hr class="my-4">
+
+                <!-- Copyright and Contact Information -->
+                <div class="text-center">
+                    <p>&copy; 2024 Aptech Projects. All rights reserved.</p>
+                    <p>Email: support@aptechprojects.com | Phone: +1 234 567 890</p>
                 </div>
             </div>
-        </div>
-    </footer>
+          </footer>
+      </div>
     
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
-</html>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        @await RenderSectionAsync("Scripts", required: false)
+    </body>
+    </html>

@@ -1,0 +1,46 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Question
+
+<div class="container">
+    <h1>@Model.QuestionText</h1>
+    <p>@Model.Description</p>
+
+    <hr />
+
+    <h3>Câu trả lời</h3>
+    @if (ViewBag.Answers != null && ((List<AnswerViewModel>)ViewBag.Answers).Any())
+    {
+        <ul class="list-group">
+            @foreach (var answer in (List<AnswerViewModel>)ViewBag.Answers)
+            {
+                <li class="list-group-item">
+                    <p>@answer.AnswerText</p>
+                    <small>Đăng bởi: @answer.UserName vào ngày @answer.PostedDate.ToString("dd/MM/yyyy")</small>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>Chưa có câu trả lời nào cho câu hỏi này.</p>
+    }
+
+
+    <hr />
+
+    <!-- Form thêm câu trả lời -->
+    <form method="post" asp-controller="Question" asp-action="AddAnswer">
+        <input type="hidden" name="questionId" value="@Model.Id" />
+        <div class="form-group">
+            <label for="answerText">Your Answer</label>
+            <textarea name="answerText" id="answerText" class="form-control" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-success mt-2">Submit Answer</button>
+    </form>
+
+
+</div>

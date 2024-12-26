@@ -1,33 +1,36 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Doctors_Web_Forum.BLL.IServices;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Doctors_Web_Forum.Web.Controllers
 {
     public class ForumsController : Controller
     {
+        private readonly ITopicService _topicService;
+        private readonly IQuestionService _questionService;
         // GET: ForumsController
-        public ActionResult Index()
-        {
-            var categories = new List<dynamic>
-        {
-            new { Id = 1, Name = "Diabetes", Description = "Discuss and get support for diabetes management.", LastPost = "What is the best diet for Type 2?" },
-            new { Id = 2, Name = "Heart Disease", Description = "Support and information on heart-related health issues.", LastPost = "Managing blood pressure at home." },
-            new { Id = 3, Name = "Mental Health", Description = "Share and get advice on mental health.", LastPost = "How do you manage stress effectively?" }
-        };
 
-            // Mock data for recent posts
-            var recentPosts = new List<dynamic>
+        public ForumsController(ITopicService topicService, IQuestionService questionService)
         {
-            new { Id = 101, QuestionText = "How do you manage stress effectively?", TopicName = "Mental Health", UserName = "User1", PostDate = "12/15/2024" },
-            new { Id = 102, QuestionText = "Top exercises for better heart health", TopicName = "Heart Disease", UserName = "User2", PostDate = "12/14/2024" },
-            new { Id = 103, QuestionText = "What is a healthy breakfast for diabetics?", TopicName = "Diabetes", UserName = "User3", PostDate = "12/13/2024" }
-        };
+            _topicService = topicService;
+            _questionService = questionService;
+        }
+        public async Task<ActionResult> Index(int pg = 1, int pageSize = 10, string query = "")
+        {
+            // Lấy các chủ đề (categories) từ service
+            var (categories, topicPager) = await _topicService.GetAllTopicsAsync(pg, pageSize, query);
 
-            // Pass mock data to the view
-            ViewBag.Categories = categories;
-            ViewBag.RecentPosts = recentPosts;
+            // Lấy các bài viết gần đây (recent posts)
+            var (recentPosts, postPager) = await _questionService.GetRecentPostsAsync(pg, pageSize, query);
 
-            return View("~/Views/Forums/Forums.cshtml");
+            // Truyền dữ liệu vào View
+            ViewBag.Categories = categories; // Danh sách chủ đề
+            ViewBag.RecentPosts = recentPosts; // Danh sách bài viết gần đây
+            ViewBag.TopicPager = topicPager; // Phân trang chủ đề
+            ViewBag.PostPager = postPager; // Phân trang bài viết gần đây
+            ViewBag.SearchTerm = query; // Từ khóa tìm kiếm
+
+            return View();
         }
 
         // GET: ForumsController/Details/5

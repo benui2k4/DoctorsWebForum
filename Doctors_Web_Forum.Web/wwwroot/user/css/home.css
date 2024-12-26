@@ -113,3 +113,118 @@
     .community-impact p {
         font-size: 1.2em;
     }
+
+.recent-posts {
+    background-color: #f9f9f9;
+    padding: 40px 0;
+}
+
+    .recent-posts h2 {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #343a40;
+    }
+
+/* Topic Card Styling */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    }
+
+.card-title a {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #343a40;
+}
+
+    .card-title a:hover {
+        color: #007bff;
+        text-decoration: underline;
+    }
+
+.card-text {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.btn-primary {
+    background-color: #6a1b9a;
+    border: none;
+    color: #fff;
+}
+
+    .btn-primary:hover {
+        background-color: #53137e;
+        color: #fff;
+    }
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    border-collapse: collapse;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.table td, .table th {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center; /* Căn giữa danh sách phân trang */
+    list-style: none; /* Bỏ gạch đầu dòng */
+    padding: 0;
+    margin: 20px 0;
+}
+
+    .pagination .page-item {
+        margin: 0 5px; /* Khoảng cách giữa các nút */
+    }
+
+    .pagination .page-link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px; /* Kích thước chiều ngang */
+        height: 40px; /* Kích thước chiều cao */
+        color: #007bff; /* Màu chữ */
+        background-color: #fff; /* Nền trắng */
+        border: 1px solid #ddd; /* Viền */
+        border-radius: 50%; /* Bo góc tròn */
+        text-decoration: none; /* Bỏ gạch chân */
+        font-size: 16px; /* Kích thước chữ */
+        font-weight: bold;
+        transition: all 0.3s ease; /* Hiệu ứng hover */
+    }
+
+        .pagination .page-link:hover {
+            background-color: #007bff; /* Nền xanh khi hover */
+            color: #fff; /* Chữ trắng khi hover */
+            border-color: #007bff;
+        }
+
+    .pagination .page-item.active .page-link {
+        background-color: #007bff; /* Nền xanh cho trang hiện tại */
+        color: #fff; /* Chữ trắng */
+        border-color: #007bff;
+    }
+
+    .pagination .page-item.disabled .page-link {
+        color: #aaa; /* Màu xám cho nút vô hiệu */
+        pointer-events: none; /* Không cho click */
+        background-color: #f8f9fa; /* Nền xám nhạt */
+    }

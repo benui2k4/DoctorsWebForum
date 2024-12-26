@@ -1,6 +1,10 @@
+<<<<<<< Updated upstream
 ﻿/* Global Styles */
 
 
+=======
+﻿
+>>>>>>> Stashed changes
 h1, h2, h3 {
     font-family: 'Roboto', sans-serif;
 }
@@ -143,7 +147,9 @@ h1, h2, h3 {
         padding-bottom: 5px;
         margin-bottom: 15px;
     }
-
+.search-box {
+    margin-left: -15px;
+}
 .search-box input {
     width: calc(100% - 20px);
     padding: 10px;
@@ -183,7 +189,7 @@ h1, h2, h3 {
         }
 
 
-        /* Wrapper cho phần tìm kiếm */
+/* Wrapper cho phần tìm kiếm */
 .search-wrapper {
     display: flex;
     justify-content: center;
@@ -209,19 +215,19 @@ h1, h2, h3 {
     gap: 10px;
 }
 
-.search-container input {
-    flex: 1;
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1em;
-}
+    .search-container input {
+        flex: 1;
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1em;
+    }
 
-.search-container input:focus {
-    outline: none;
-    border-color: #4e54c8;
-    box-shadow: 0 0 5px rgba(78, 84, 200, 0.5);
-}
+        .search-container input:focus {
+            outline: none;
+            border-color: #4e54c8;
+            box-shadow: 0 0 5px rgba(78, 84, 200, 0.5);
+        }
 
 .btn-search {
     background-color: #4e54c8;
@@ -234,6 +240,7 @@ h1, h2, h3 {
     transition: background-color 0.3s ease;
 }
 
-.btn-search:hover {
-    background-color: #8f94fb;
-}
+    .btn-search:hover {
+        background-color: #8f94fb;
+    }
+
