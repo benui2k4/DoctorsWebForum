@@ -33,6 +33,21 @@ namespace Doctors_Web_Forum.BLL.Services
             return await GetAnswersWithRelatedEntities().ToListAsync();
         }
 
+        public async Task<bool> AddAnswerAsync(Answer answer)
+        {
+            try
+            {
+                _context.Answers.Add(answer);
+                await _context.SaveChangesAsync();
+                return true; // Trả về true khi thêm thành công
+            }
+            catch
+            {
+                return false; // Trả về false khi có lỗi
+            }
+        }
+
+
         // Lấy câu trả lời theo Id
         public async Task<Answer> GetAnswerByIdAsync(int id)
         {
@@ -88,7 +103,7 @@ namespace Doctors_Web_Forum.BLL.Services
             {
                 return false; // Nếu câu trả lời không tồn tại
             }
-                
+
             _context.Answers.Remove(answer);
             await _context.SaveChangesAsync();
             return true;

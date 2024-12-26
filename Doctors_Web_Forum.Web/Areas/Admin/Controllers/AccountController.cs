@@ -1,5 +1,6 @@
 ﻿using Doctors_Web_Forum.DAL.Models;
 using Doctors_Web_Forum.DAL.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
@@ -7,6 +8,7 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pag
 namespace Doctors_Web_Forum.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    
 
 
     public class AccountController : Controller
@@ -32,7 +34,7 @@ namespace Doctors_Web_Forum.Web.Areas.Admin.Controllers
                 var user = await _userManager.FindByEmailAsync(loginVM.Email);
                 if (user == null)
                 {
-                    ModelState.AddModelError("", "Email không tồn tại.");
+                    ModelState.AddModelError("", "Incorrect email or password!");
                     return View(loginVM);
                 }
 
@@ -47,15 +49,15 @@ namespace Doctors_Web_Forum.Web.Areas.Admin.Controllers
                     var updateResult = await _userManager.UpdateAsync(user);
                     if (!updateResult.Succeeded)
                     {
-                        TempData["error"] = "Không thể cập nhật thời gian đăng nhập.";
+                        TempData["error"] = "Unable to update login time!";
                         return RedirectToAction("Login");
                     }
 
-                    TempData["success"] = "Đăng Nhập thành công!";
+                    TempData["success"] = "Login successful!";
                     return Redirect(loginVM.ReturnUrl ?? "/Admin/Dashboard/Index");
                 }
 
-                ModelState.AddModelError("", "Email hoặc mật khẩu không đúng!");
+                ModelState.AddModelError("", "Incorrect email or password!");
             }
 
             return View(loginVM);
@@ -91,18 +93,18 @@ namespace Doctors_Web_Forum.Web.Areas.Admin.Controllers
 
                 if (result.Succeeded)
                 {
-                    TempData["success"] = "Tạo admin thành công!";
+                    TempData["success"] = "Admin created successfully!";
                     return RedirectToAction("Login", "Account", new { area = "Admin" });
                 }
 
-                // Nếu có lỗi, thêm vào ModelState
+                
                 foreach (IdentityError error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }
             }
 
-            // Trả về view nếu có lỗi
+            
             return View(model);
         }
 

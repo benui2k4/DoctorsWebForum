@@ -5,10 +5,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Doctors_Web_Forum.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    
     public class UserController : Controller
     {
         private readonly IUserService _userService;

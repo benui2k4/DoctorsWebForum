@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using Doctors_Web_Forum.BLL.IServices;
 using Microsoft.Extensions.Logging;
 using Doctors_Web_Forum.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Doctors_Web_Forum.Controllers
 {
     [Area("Admin")]
+    
     public class ProfileController : Controller
     {
         private readonly IProfileService _profileService;

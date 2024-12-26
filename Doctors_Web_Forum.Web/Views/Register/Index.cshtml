@@ -1,0 +1,87 @@
+﻿@model Doctors_Web_Forum.Web.Models.RegisterUser
+
+@section Styles {
+    <link rel="stylesheet" href="~/user/css/register.css" asp-append-version="true" />
+}
+
+<div class="register-page">
+    <header class="banner">
+        <h1>Create Your Account</h1>
+        <p>Join our community today and start participating in discussions!</p>
+    </header>
+
+    @* Hiển thị thông báo thành công *@
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["success"]
+        </div>
+    }
+
+    <section class="register-form">
+        <div class="form-container">
+            <form asp-action="Index" asp-controller="Register" method="post">
+                <div class="form-group">
+                    <label for="FullName">Full Name</label>
+                    <input type="text" id="FullName" name="FullName" value="@Model.FullName" class="form-control" placeholder="Enter your fullname..." />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="Username">Username</label>
+                    <input type="text" id="Username" name="Username" value="@Model.Username" class="form-control" placeholder="Enter your username..." />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="Email">Email</label>
+                    <input type="email" id="Email" name="Email" value="@Model.Email" class="form-control" placeholder="Enter your email..." />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                @* Address *@
+                <div class="form-group">
+                    <label for="Address">Address</label>
+                    <input type="text" id="Address" name="Address" value="@Model.Address" placeholder="Enter your address..." />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="PhoneNumber">Phone Number</label>
+                    <input type="text" id="PhoneNumber" name="PhoneNumber" value="@Model.PhoneNumber" class="form-control" placeholder="Enter your phone number..." />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="Password">Password</label>
+                    <input type="password" id="Password" name="Password" class="form-control" placeholder="Enter your password..." />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group terms">
+                    <label>
+                        <input type="checkbox" id="Terms" name="Terms" required checked />
+                        I agree to the <a href="/Terms" target="_blank">Terms and Conditions</a>.
+                    </label>
+                </div>
+
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+
+
+                <div class="form-group">
+                    <p>
+                        Already have an account?
+                        <a href="/login" class="login-link">Login</a>
+                    </p>
+                </div>
+
+            </form>
+        </div>
+    </section>
+</div>

@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Doctors_Web_Forum.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    
     public class RoleController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;

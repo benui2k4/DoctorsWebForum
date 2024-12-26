@@ -1,6 +1,7 @@
 ﻿using Doctors_Web_Forum.BLL.IServices;
 using Doctors_Web_Forum.DAL.Models;
 using Doctors_Web_Forum.DAL.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 namespace Doctors_Web_Forum.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    
     public class QuestionController : Controller
     {
         private readonly IQuestionService _questionService;
