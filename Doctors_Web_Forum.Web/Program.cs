@@ -15,11 +15,9 @@ builder.Services.AddControllersWithViews();
 // Add Service DbContext
 builder.Services.AddDbContext<DataDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionSQL")));
 
-
+// add scoped
 builder.Services.AddScoped<ITopicService, TopicService>();
-
 builder.Services.AddScoped<IUserService, UserService>();
-
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IQuestionService, QuestionService>();
 builder.Services.AddScoped<IAnswerService, AnswerService>();
@@ -43,7 +41,7 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 var app = builder.Build();
 
-// cấu hình Areas Admin
+// config Areas Admin
 
 app.MapControllerRoute(
     name: "Areas",
@@ -54,12 +52,18 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
-app.UseStaticFiles();
 
+// allow access to static resources in wwwroot
+app.UseStaticFiles();
+// allow navigation
 app.UseRouting();
+// allow authentication
 app.UseAuthentication();
+// allow authorization
 app.UseAuthorization();
 
+
+// default path when accessing the project
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

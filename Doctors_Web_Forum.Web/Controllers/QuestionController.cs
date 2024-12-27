@@ -1,14 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Doctors_Web_Forum.Services; // Namespace của các dịch vụ (nếu bạn có sử dụng)
-using Doctors_Web_Forum.Models; // Namespace chứa các mô hình (Models)
-using System.Threading.Tasks;
 using Doctors_Web_Forum.BLL.IServices;
-using Microsoft.EntityFrameworkCore;
 using Doctors_Web_Forum.DAL.Models.ViewModel;
 using Doctors_Web_Forum.DAL.Models;
 using Microsoft.AspNetCore.Identity;
-using Doctors_Web_Forum.BLL.Services;
 using System.Security.Claims;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Doctors_Web_Forum.Web.Controllers
 {
@@ -26,47 +23,44 @@ namespace Doctors_Web_Forum.Web.Controllers
         }
 
         // GET: /Question/Index
-        public async Task<IActionResult> Index(int? topicId, int pg = 1, int pageSize = 5, string searchTerm = "")
+        public async Task<IActionResult> Index(int? topicId, int pg = 1, int pageSize = 5)
         {
             IEnumerable<Question> questions;
             Paginate pager;
 
-            if (topicId.HasValue && topicId > 0) // Kiểm tra nếu topicId được truyền
+            if (topicId.HasValue && topicId > 0)
             {
-                // Lọc câu hỏi theo topicId
+                // Filter questions by TopicId
                 var (questionsByTopic, pagerByTopic) = await _questionService.GetQuestionsByTopicAsync(topicId.Value, pg, pageSize);
                 questions = questionsByTopic;
                 pager = pagerByTopic;
 
-                ViewBag.TopicId = topicId; // Để hiển thị chủ đề hiện tại trong View
+                ViewBag.TopicId = topicId;
             }
             else
             {
-                // Hiển thị tất cả câu hỏi nếu không có topicId
-                var (allQuestions, allPager) = await _questionService.GetAllQuestionsAsync(pg, pageSize, searchTerm);
+                // Display all questions if no TopicId is provided
+                var (allQuestions, allPager) = await _questionService.GetAllQuestionsAsync(pg, pageSize, "");
                 questions = allQuestions;
                 pager = allPager;
             }
 
             ViewBag.Pager = pager;
-            ViewBag.SearchTerm = searchTerm;
-
             return View(questions);
         }
-
 
         // GET: /Question/Details/{id}
         public async Task<IActionResult> Details(int id)
         {
-            // Lấy thông tin câu hỏi từ id
+            // Retrieve question details by id
             var question = await _questionService.GetQuestionByIdAsync(id);
             if (question == null)
             {
-                TempData["ErrorMessage"] = "Không tìm thấy câu hỏi.";
+                TempData["ErrorMessage"] = "The question could not be found.";
                 return RedirectToAction(nameof(Index));
             }
 
-            // Lấy danh sách câu trả lời liên quan đến câu hỏi
+            // Retrieve answers related to the question
             var answers = question.Answers.Select(a => new AnswerViewModel
             {
                 Id = a.Id,
@@ -75,80 +69,84 @@ namespace Doctors_Web_Forum.Web.Controllers
                 PostedDate = a.PostedDate
             }).ToList();
 
-            // Truyền dữ liệu vào View
+            // Pass data to the view
             ViewBag.Answers = answers;
 
-            return View(question); // Truyền câu hỏi vào View
+            return View(question);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(Question model)
         {
-            // Kiểm tra người dùng đã đăng nhập
             if (!User.Identity.IsAuthenticated)
             {
-                TempData["ErrorMessage"] = "Bạn cần đăng nhập để thêm câu hỏi.";
-                return Redirect("/Login");
+                TempData["ErrorMessage"] = "You need to log in to add a question.";
+                return RedirectToAction("Index");
+            }
+            if (model.TopicId <= 0 || string.IsNullOrEmpty(model.QuestionText) || string.IsNullOrEmpty(model.Description))
+            {
+                TempData["ErrorMessage"] = "Invalid data.";
+                return RedirectToAction("Index");
             }
 
-            // Gán thông tin cho câu hỏi
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            model.UserId = userId;
+            // Assign user details to the question
+            model.UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             model.PostDate = DateTime.Now;
-            model.Status = true; // Giả định trạng thái là Active khi thêm câu hỏi
+            model.Status = true;
 
-            // Thêm câu hỏi qua dịch vụ
             var result = await _questionService.AddQuestionAsync(model);
 
             if (!result)
             {
-                TempData["ErrorMessage"] = "Thêm câu hỏi thất bại. Vui lòng thử lại.";
-                return RedirectToAction("Index");
+                TempData["ErrorMessage"] = "Failed to add the question.";
+                return RedirectToAction("Index", new { topicId = model.TopicId });
             }
 
-            TempData["SuccessMessage"] = "Thêm câu hỏi thành công.";
-            return RedirectToAction("Index");
+            TempData["SuccessMessage"] = "Question added successfully.";
+            return RedirectToAction("Index", new { topicId = model.TopicId });
         }
 
         [HttpPost]
         public async Task<IActionResult> AddAnswer(int questionId, string answerText)
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                TempData["ErrorMessage"] = "You need to log in to add an answer.";
-                return Redirect("http://localhost:5140/Login"); // URL tuyệt đối đến trang Login
-            }
+            var user = await _userManager.GetUserAsync(User);
 
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
-            if (string.IsNullOrEmpty(answerText) || string.IsNullOrEmpty(userId))
+            // Check if the user is logged in
+            if (user == null)
             {
-                TempData["ErrorMessage"] = "Answer cannot be empty.";
+                TempData["ErrorMessage"] = "You need to log in to submit an answer. Please log in and try again.";
                 return RedirectToAction("Details", new { id = questionId });
             }
 
+            // Validate the content of the answer
+            if (string.IsNullOrEmpty(answerText))
+            {
+                TempData["ErrorMessage"] = "The answer content cannot be empty. Please provide a valid answer.";
+                return RedirectToAction("Details", new { id = questionId });
+            }
+
+            // Create a new answer
             var newAnswer = new Answer
             {
                 QuestionId = questionId,
-                UserId = userId,
                 AnswerText = answerText,
+                UserId = user.Id,
                 PostedDate = DateTime.Now,
-                Status = true
+                Status = true // Assuming the answer is active
             };
 
-            var result = await _answerService.AddAnswerAsync(newAnswer);
-
-            if (!result)
+            // Save the answer using the service
+            var result = await _answerService.CreateAnswerAsync(newAnswer);
+            if (result == null)
             {
-                TempData["ErrorMessage"] = "Failed to add the answer. Please try again.";
-                return RedirectToAction("Details", new { id = questionId });
+                TempData["ErrorMessage"] = "Failed to submit the answer. Please try again later.";
+            }
+            else
+            {
+                TempData["SuccessMessage"] = "Your answer has been submitted successfully!";
             }
 
-            TempData["SuccessMessage"] = "Your answer has been submitted successfully.";
             return RedirectToAction("Details", new { id = questionId });
         }
-
-
     }
-
 }
