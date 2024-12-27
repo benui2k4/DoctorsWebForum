@@ -22,12 +22,12 @@ namespace Doctors_Web_Forum.DAL.Data
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<DoctorProfile> DoctorProfiles { get; set; }
 
-        public DbSet<LoginAttempt> LoginAttempts { get; set; }
+    
 
         
 
-        public DbSet<AdminLog> AdminLogs { get; set; }
-
+        
+            
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

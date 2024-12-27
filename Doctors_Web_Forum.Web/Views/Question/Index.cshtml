@@ -1,55 +1,77 @@
 ﻿<div class="container my-5">
-    <!-- Form tìm kiếm -->
+    <!-- Notifications -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success notification-message mb-4">
+            <strong>Success!</strong> @TempData["SuccessMessage"]
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger notification-message mb-4">
+            <strong>Error!</strong> @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <!-- Search Form -->
     <form method="get" action="/Question/Index" class="mb-4">
         <div class="input-group search-group">
             <input type="text"
                    class="form-control search-input"
                    name="searchTerm"
                    value="@ViewBag.SearchTerm"
-                   placeholder="Tìm kiếm câu hỏi..." />
+                   placeholder="Search for questions..." />
             <input type="hidden" name="topicId" value="@ViewBag.TopicId" />
-            <button type="submit" class="btn btn-primary search-btn">Tìm kiếm</button>
+            <button type="submit" class="btn btn-primary search-btn">Search</button>
         </div>
     </form>
 
-    <!-- Form thêm câu hỏi -->
+    <!-- Add New Question Form -->
     <form method="post" action="/Question/Create" class="mb-5 p-4 border rounded shadow-sm">
-        <h5 class="mb-3">Thêm Câu Hỏi Mới</h5>
+        <h5 class="mb-3">Add a New Question</h5>
+        <input type="hidden" name="TopicId" value="@ViewBag.TopicId" />
+
         <div class="form-group mb-3">
-            <label for="title">Tiêu đề câu hỏi</label>
+            <label for="QuestionText">Question Title</label>
             <br />
-            <input type="text" class="form-control" id="title" name="Title" placeholder="Nhập tiêu đề câu hỏi" required>
+            <input type="text" class="form-control" id="QuestionText" name="QuestionText" placeholder="Enter the question title" required>
         </div>
         <div class="form-group mb-3">
-            <label for="description">Mô tả</label>
+            <label for="Description">Description</label>
             <br />
-            <textarea class="form-control" id="description" name="Description" rows="3" placeholder="Nhập mô tả câu hỏi" required></textarea>
+            <textarea class="form-control" id="Description" name="Description" rows="3" placeholder="Enter the question description" required></textarea>
         </div>
-        <button type="submit" class="btn btn-success">Gửi Câu Hỏi</button>
+        <button type="submit" class="btn btn-success">Submit Question</button>
     </form>
 
-    <!-- Hiển thị danh sách câu hỏi -->
+    <!-- Display List of Questions -->
     <div class="row">
         @foreach (var question in Model)
         {
             <div class="question-card border p-4 mb-4 rounded shadow-sm">
                 <div class="mb-2">
-                    <strong>Chủ đề:</strong>
-                    <span class="badge bg-secondary">@question.Topic?.TopicName</span> <!-- Hiển thị tên chủ đề -->
+                    <strong>Topic:</strong>
+                    <span class="badge bg-secondary">@question.Topic?.TopicName</span>
                 </div>
                 <hr />
                 <div>
-                    <strong>Nội dung:</strong> @question.QuestionText
+                    <strong>Content:</strong> @question.QuestionText
                 </div>
                 <div>
-                    <strong>Mô tả:</strong> @Html.Raw(@question.Description?.Length > 100 ? @question.Description.Substring(0, 100) + "..." : @question.Description)
+                    <strong>Description:</strong> @Html.Raw(@question.Description?.Length > 100 ? @question.Description.Substring(0, 100) + "..." : @question.Description)
                 </div>
-                <a href="/Question/Details/@question.Id" class="btn btn-outline-primary btn-sm">Xem chi tiết</a>
+                <div class="mt-2">
+                    <small>
+                        By <strong>@question.User?.UserName</strong> on @question.PostDate.ToString("MM/dd/yyyy")
+                    </small>
+                </div>
+                <br />
+                <a href="/Question/Details/@question.Id" class="btn btn-detail">View Details</a>
             </div>
         }
     </div>
 
-    <!-- Phân trang -->
+    <!-- Pagination -->
     <nav>
         <ul class="pagination justify-content-center mt-4">
             @for (int i = 1; i <= ViewBag.Pager.TotalPages; i++)
@@ -62,10 +84,11 @@
     </nav>
 </div>
 
+
 <style>
     /* Nền tổng thể */
     body {
-        background-color: #f4f4f9;
+        background-color: #f8f9fa;
         color: #333;
         font-family: Arial, sans-serif;
     }
@@ -135,7 +158,6 @@
                 transform: translateY(-2px); /* Nút nhấn nhô lên */
                 box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); /* Đổ bóng khi hover */
             }
-
     /* Card hiển thị câu hỏi */
     .question-card {
         background-color: #ffffff; /* Nền trắng */
@@ -193,10 +215,18 @@
     /* Phân trang */
     .pagination {
         margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        list-style-type: none; /* Xóa dấu chấm */
+        padding: 0; /* Xóa padding mặc định */
     }
 
+        .pagination .page-item {
+            margin: 0;
+        }
+
         .pagination .page-link {
-            color: #007bff;
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -204,18 +234,80 @@
             align-items: center;
             justify-content: center;
             font-size: 14px;
+            background-color: #fff;
+            color: #007bff;
+            border: 1px solid #ddd;
             transition: all 0.3s ease;
+            text-decoration: none;
         }
-
-            .pagination .page-link:hover {
-                background-color: #007bff;
-                color: #fff;
-            }
 
         .pagination .page-item.active .page-link {
             background-color: #007bff;
             color: #fff;
-            border-color: #007bff;
+            border: none;
             font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
         }
+
+        .pagination .page-link:hover {
+            background-color: #007bff;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .pagination .page-item.disabled .page-link {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+
+    .btn-detail {
+        font-size: 14px;
+        padding: 8px 12px;
+        color: #007bff;
+        border: 1px solid #007bff;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+        .btn-detail:hover {
+            background-color: #007bff;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-detail:active {
+            transform: translateY(1px);
+            box-shadow: none;
+        }
+
+    .notification-message {
+        padding: 15px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .alert-success {
+        color: #155724;
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .alert-danger {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .alert {
+        margin: 20px auto;
+        max-width: 600px;
+    }
 </style>
